@@ -1,0 +1,12 @@
+services:
+  producer:
+    build: 
+      context: ./kafka-producer
+      dockerfile: ./Dockerfile
+
+  consumer:
+    build: 
+      context: ./kafka-consumer
+      dockerfile: ./Dockerfile
+    depends_on:
+      - producer
