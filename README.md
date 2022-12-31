@@ -13,8 +13,8 @@ The application `kafka-producer` is a web api responsible for capture the client
 
 ## References
   * [Kafka](https://kafka.apache.org/)
+  * [Kafkajs](https://kafka.js.org/)
   * [Express](https://expressjs.com/pt-br/)
-  * [TypeScript](https://www.typescriptlang.org/)
   * [TypeScript](https://www.typescriptlang.org/)
 
 
