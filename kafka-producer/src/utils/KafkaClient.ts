@@ -64,6 +64,10 @@ class KafkaClient {
 
     return parsedMessages;
   }
+
+  private disconnect() {
+    this.producer.disconnect();
+  }
 }
 
 export default KafkaClient;
