@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { rabbitClient } from '.';
+import KafkaClient from './utils/KafkaClient';
 
 const routes = Router();
 
@@ -7,9 +7,9 @@ routes.post('/sendToQueue', async (req, res) => {
   const {
     name, document
   } = req.body;
+  const kafka = req.kafka;
 
-  // or rabbitClient.publishInExchange
-  const result = await rabbitClient.publishMessage({
+  const result = await kafka.sendToQueue({
     name,
     document
   });

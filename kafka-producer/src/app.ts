@@ -1,4 +1,4 @@
-import express, { Application } from 'express';
+import express, { Application, NextFunction, Request, Response } from 'express';
 import KafkaClient from './utils/KafkaClient';
 import routes from './routes';
 
@@ -22,8 +22,14 @@ class App {
       clientId: process.env.KAFKA_CLIENT!,
       brokers: [process.env.KAFKA_BROKERS!],
       password: process.env.KAFKA_USERNAME!,
-      username: process.env.KAFKA_PASSWORD!,
+      username: process.env.KAFKA_PASSWORD!
     });
+
+    this.express.use((req, res, next) => {
+      req.kafka = this.kafkaClient;
+
+      next()
+    })
   }
 
   private setupRoutes() {
