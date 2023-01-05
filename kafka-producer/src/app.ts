@@ -20,13 +20,12 @@ class App {
   }
 
   private async startKafkaConnection() {
-    console.log(process.env.KAFKA_TOPIC, process.env.KAFKA_CLIENT, process.env.KAFKA_BROKERS)
     await this.kafkaClient.configure({
       topic: process.env.KAFKA_TOPIC!,
       clientId: process.env.KAFKA_CLIENT!,
       brokers: [process.env.KAFKA_BROKERS!]
     });
-    console.log("teste")
+
     this
       .express
       .use((req, res, next) => {
