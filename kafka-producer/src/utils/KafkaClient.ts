@@ -3,8 +3,6 @@ import { Kafka, Message, Producer } from 'kafkajs';
 type KafkaConfig = {
   clientId: string;
   brokers: string[];
-  username: string;
-  password: string;
   topic: string;
 };
 
@@ -23,19 +21,11 @@ class KafkaClient {
 
   private createKafkaInstance({
     brokers,
-    clientId,
-    password,
-    username,
+    clientId
   }: Omit<KafkaConfig, 'topic'>) {
     return new Kafka({
       clientId,
-      brokers,
-      sasl: {
-        mechanism: 'scram-sha-512',
-        username,
-        password,
-      },
-      ssl: true,
+      brokers
     });
   }
 

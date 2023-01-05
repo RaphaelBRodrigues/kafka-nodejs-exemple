@@ -1,6 +1,9 @@
-import express, { Application, NextFunction, Request, Response } from 'express';
+import express, { Application } from 'express';
+import dotenv from 'dotenv';
 import KafkaClient from './utils/KafkaClient';
 import routes from './routes';
+
+dotenv.config();
 
 class App {
   private express: Application;
@@ -17,19 +20,20 @@ class App {
   }
 
   private async startKafkaConnection() {
+    console.log(process.env.KAFKA_TOPIC, process.env.KAFKA_CLIENT, process.env.KAFKA_BROKERS)
     await this.kafkaClient.configure({
       topic: process.env.KAFKA_TOPIC!,
       clientId: process.env.KAFKA_CLIENT!,
-      brokers: [process.env.KAFKA_BROKERS!],
-      password: process.env.KAFKA_USERNAME!,
-      username: process.env.KAFKA_PASSWORD!
+      brokers: [process.env.KAFKA_BROKERS!]
     });
+    console.log("teste")
+    this
+      .express
+      .use((req, res, next) => {
+        req.kafka = this.kafkaClient;
 
-    this.express.use((req, res, next) => {
-      req.kafka = this.kafkaClient;
-
-      next()
-    })
+        next()
+      });
   }
 
   private setupRoutes() {
@@ -40,7 +44,7 @@ class App {
     this.express.use(express.json());
   }
 
-  listen() {
+  private listen() {
     this.express.listen(3000, () => {
       console.log('App Running');
     });
