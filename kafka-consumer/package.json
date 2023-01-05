@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node-dev ./src/index.ts"
+    "start": "ts-node-dev --files ./src/app.ts"
   },
   "keywords": [],
   "author": "",
@@ -13,6 +13,7 @@
     "ts-node-dev": "^2.0.0"
   },
   "dependencies": {
+    "@types/dotenv": "^8.2.0",
     "dotenv": "^16.0.3",
     "kafkajs": "^2.2.3"
   }

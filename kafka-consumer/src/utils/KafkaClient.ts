@@ -1,10 +1,8 @@
-import { Consumer, EachMessageHandler, EachMessagePayload, Kafka, KafkaMessage, Message } from 'kafkajs';
+import { Consumer, Kafka, KafkaMessage } from 'kafkajs';
 
 type KafkaConfig = {
   clientId: string;
   brokers: string[];
-  username: string;
-  password: string;
   topic: string;
   groupId: string;
 };
@@ -24,19 +22,11 @@ class KafkaClient {
 
   private createKafkaInstance({
     brokers,
-    clientId,
-    password,
-    username
+    clientId
   }: Omit<KafkaConfig, 'topic' | 'groupdId'>) {
     return new Kafka({
       clientId,
-      brokers,
-      sasl: {
-        mechanism: 'scram-sha-512',
-        username,
-        password,
-      },
-      ssl: true,
+      brokers
     });
   }
 

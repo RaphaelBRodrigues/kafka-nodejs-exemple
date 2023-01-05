@@ -8,13 +8,12 @@ class Application {
 
   constructor() {
     this.kafkaClient = new KafkaClient();
+
     this.kafkaClient.configure({
       topic: process.env.KAFKA_TOPIC!,
       clientId: process.env.KAFKA_CLIENT!,
       brokers: [process.env.KAFKA_BROKERS!],
-      password: process.env.KAFKA_USERNAME!,
-      username: process.env.KAFKA_PASSWORD!,
-      groupId: process.env.GROUP_ID!
+      groupId: process.env.KAFKA_CONSUMER_ID!
     });
   }
 
@@ -25,4 +24,4 @@ class Application {
   }
 }
 
-new Application();
+new Application().startConsumer();
